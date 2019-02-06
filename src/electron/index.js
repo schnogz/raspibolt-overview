@@ -15,9 +15,11 @@ if (process.defaultApp ||
 function renderApp() {
   let indexPath
   mainWindow = new BrowserWindow({
-    fullscreen: true,
+    fullscreen: !isDev,
+    frame: !isDev,
+    height: !isDev ? 600 : null,
+    width: !isDev ? 900 : null,
     show: false,
-    // frame: false
   })
 
   if (isDev && process.argv.indexOf('--noDevServer') === -1) {
