@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
+const { Menu } = require('./components')
 let mainWindow;
 let isDev = false;
 if (process.defaultApp ||
@@ -14,10 +15,7 @@ if (process.defaultApp ||
 function renderApp() {
   let indexPath
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 900,
-    // maxWidth: 800,
-    // maxHeight: 400,
+    fullscreen: true,
     show: false,
     // frame: false
   })
@@ -51,7 +49,10 @@ ipcMain.on('refresh-data', (e) => {
   e.sender.send('data-refreshed', { test: 'YO' })
 })
 
-app.on('ready', renderApp)
+app.on('ready', () => {
+  renderApp()
+  Menu.renderMenu()
+})
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })

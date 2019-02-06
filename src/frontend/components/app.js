@@ -1,6 +1,6 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components'
-import { ipcRenderer } from 'electron';
+import { ipcRenderer } from 'electron'
 
 const GlobalStyle = createGlobalStyle`
   html, body, #app, #app > div {
@@ -38,4 +38,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default App

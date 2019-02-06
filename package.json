@@ -9,7 +9,7 @@
     "url": "https://github.com/schnogz/raspibolt-overview"
   },
   "license": "MIT",
-  "main": "main.js",
+  "main": "./src/electron/index.js",
   "scripts": {
     "prod": "webpack --config webpack.build.config.js && electron --noDevServer .",
     "dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
