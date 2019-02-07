@@ -14,8 +14,9 @@
     "prod": "webpack --config webpack.build.config.js && electron --noDevServer .",
     "dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "webpack --config webpack.build.config.js",
-    "package": "webpack --config webpack.build.config.js",
-    "postpackage": "electron-packager ./ --out=./builds"
+    "prepackage": "webpack --config webpack.build.config.js",
+    "package": "electron-packager ./ --platform linux --arch x64 --out=./builds",
+    "postpackage": "electron-installer-debian --src builds/RaspiBolt-linux-x64/ --dest builds/installers/ --arch amd64"
   },
   "dependencies": {
     "@babel/cli": "7.2.3",
@@ -31,6 +32,7 @@
     "babili-webpack-plugin": "0.1.2",
     "css-loader": "2.1.0",
     "electron": "4.0.4",
+    "electron-installer-debian": "1.1.0",
     "electron-packager": "13.0.1",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "3.0.1",
