@@ -1,6 +1,7 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components'
 import { ipcRenderer } from 'electron'
+import logo from 'assets/logo.png'
 
 const GlobalStyle = createGlobalStyle`
   html, body, #app, #app > div {
@@ -18,18 +19,25 @@ const GlobalStyle = createGlobalStyle`
 `
 
 class App extends React.Component {
-  state = {}
+  state = { data: '' }
   componentDidMount () {
     const that = this
     ipcRenderer.send('data-request', 'getDate')
+    ipcRenderer.send('data-request', 'getSystemTemp')
+    ipcRenderer.send('data-request', 'getSystemUptime')
+    ipcRenderer.send('data-request', 'getSystemMemory')
+    ipcRenderer.send('data-request', 'getSystemStorage')
     ipcRenderer.on('data-response', (e, resp) => {
-      that.setState({ data: resp.data })
+      resp.error
+        ? console.error(`Command: ${resp.cmdRequest} Error: ${resp.error}`)
+        : that.setState({ data: that.state.data += resp.data + " // " })
     })
   }
 
   render () {
     return (
       <div>
+        <img src={logo} alt="Logo" height='100px' width='100px'/>
         <p>RaspiBolt System Overview</p>
         { this.state.data }
         <GlobalStyle/>

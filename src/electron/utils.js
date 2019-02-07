@@ -1,13 +1,9 @@
 const util = require('util')
 
-const functionMap = {
-  getDate: 'getDate.sh'
-}
-
+// cmd must match name of shell script exactly
 executeBashScript = async (cmd) => {
   const exec = util.promisify(require('child_process').exec)
-  console.log(functionMap[cmd])
-  return await exec(`bash ${__dirname}/scripts/${functionMap[cmd]}`)
+  return await exec(`bash ${__dirname}/scripts/${cmd}.sh`)
 }
 
 module.exports = {
