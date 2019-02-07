@@ -1,8 +1,11 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
+const util = require('util')
 
-const { Menu } = require('./components')
+const Menu = require('./menu')
+const Utils = require('./utils')
+
 let mainWindow;
 let isDev = false;
 if (process.defaultApp ||
@@ -47,14 +50,18 @@ function renderApp() {
   })
 }
 
-ipcMain.on('refresh-data', (e) => {
-  e.sender.send('data-refreshed', { test: 'YO' })
+ipcMain.on('data-request', (event, cmdRequest) => {
+  Utils.executeBashScript(cmdRequest).then((resp) => {
+    const { cmd: commandRan, stdout: data, stderr: error } = resp
+    event.sender.send('data-response', { cmdRequest, commandRan, data, error })
+  })
 })
 
 app.on('ready', () => {
   renderApp()
   Menu.renderMenu()
 })
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })

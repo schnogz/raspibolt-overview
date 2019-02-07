@@ -21,9 +21,9 @@ class App extends React.Component {
   state = {}
   componentDidMount () {
     const that = this
-    ipcRenderer.send('refresh-data')
-    ipcRenderer.on('data-refreshed', (e, resp) => {
-      that.setState({ data: resp.test})
+    ipcRenderer.send('data-request', 'getDate')
+    ipcRenderer.on('data-response', (e, resp) => {
+      that.setState({ data: resp.data })
     })
   }
 
