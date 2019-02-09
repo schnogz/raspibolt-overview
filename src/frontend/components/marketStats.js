@@ -11,7 +11,7 @@ const PriceText =  styled(Text)`
 `
 
 class MarketStats extends React.PureComponent {
-  state = { price: {} }
+  state = { }
 
   componentWillMount() {
     this.fetchStats()
@@ -25,6 +25,7 @@ class MarketStats extends React.PureComponent {
       this.fetchPrices()
     }, 15000)
   }
+
   fetchPrices = () => {
     console.log('fetching prices')
     let that = this
@@ -33,18 +34,14 @@ class MarketStats extends React.PureComponent {
       .then((resp) => {
         return resp.json()
       }).then((json) => {
-        that.setState({ price: { current: (json.bpi.USD.rate_float).toFixed(2) } })
-    })
+        that.setState({ priceCurrent: (json.bpi.USD.rate_float).toFixed(2) })
+      })
     // price 24 hours ago
     fetch('https://api.coindesk.com/v1/bpi/historical/close.json?for=yesterday')
       .then((resp) => {
         return resp.json()
       }).then((json) => {
-      that.setState({
-        price: {
-          yesterday: (Object.keys(json.bpi)[0]).toFixed(2)
-        }
-      })
+        that.setState({ priceYesterday: json.bpi[Object.keys(json.bpi)[0]].toFixed(2) })
     })
   }
 
@@ -66,7 +63,7 @@ class MarketStats extends React.PureComponent {
   }
 
   render () {
-    const { price } = this.state
+    const { priceCurrent, priceYesterday } = this.state
     return (
       <Box gridArea='topRight' background='light-4' animation='slideUp' pad='small'>
         <HeaderText margin="none" size='small' textAlign='center'>
@@ -75,8 +72,8 @@ class MarketStats extends React.PureComponent {
         <Box direction='row'>
           <Box flex={{grow: "2"}} direction='row' justify='between'>
             <Text>Price:</Text>
-            <PriceText newP={price.current} oldP={price.yesterday}>
-              ${price.current}
+            <PriceText newP={priceCurrent} oldP={priceYesterday}>
+              ${priceCurrent}
             </PriceText>
           </Box>
         </Box>

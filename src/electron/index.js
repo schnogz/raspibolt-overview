@@ -24,7 +24,10 @@ function renderApp() {
     maxWidth: width,
     height: height,
     width: width,
-    show: false
+    show: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
 
   if (isDev && process.argv.indexOf('--noDevServer') === -1) {
