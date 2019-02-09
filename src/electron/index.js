@@ -1,7 +1,7 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const electron = require('electron')
+const { app, BrowserWindow, ipcMain } = electron
 const path = require('path')
 const url = require('url')
-const util = require('util')
 
 const Menu = require('./menu')
 const Utils = require('./utils')
@@ -17,12 +17,14 @@ if (process.defaultApp ||
 
 function renderApp() {
   let indexPath
+  const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize
   mainWindow = new BrowserWindow({
-    fullscreen: !isDev,
     frame: true,
-    height: !isDev ? 600 : null,
-    width: !isDev ? 900 : null,
-    show: false,
+    maxHeight: height,
+    maxWidth: width,
+    height: height,
+    width: width,
+    show: false
   })
 
   if (isDev && process.argv.indexOf('--noDevServer') === -1) {

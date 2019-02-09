@@ -38,7 +38,6 @@ class Header extends React.PureComponent {
             type='digital'
             precision='minutes'
             size='xlarge'
-            hourLimit='12'
           />
         </Box>
       </Box>
