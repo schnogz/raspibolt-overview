@@ -20,6 +20,9 @@ const Separator = styled.div`
   margin-top: 10px;
   border-bottom: 2px solid #FFCA58;
 `
+const StyledGrid = styled(Grid)`
+  margin-top: 10px;
+`
 
 class App extends React.Component {
   state = { data: '' }
@@ -42,10 +45,9 @@ class App extends React.Component {
       <Box direction='column' pad='small'>
         <Header />
         <Separator />
-        <Grid
-          style={{marginTop: '10px'}}
+        <StyledGrid
           rows={['flex', 'flex']}
-          columns={[{"count": "fit", "size": "flex"}]}
+          columns={[{"count": "fit", "size": "auto"}]}
           gap="small"
           areas={[
             { name: 'topLeft', start: [0, 0], end: [0, 0] },
@@ -58,7 +60,7 @@ class App extends React.Component {
           <MarketStats />
           <BitcoinNodeStats />
           <LightningNodeStats />
-        </Grid>
+        </StyledGrid>
         <GlobalStyle/>
       </Box>
     )
