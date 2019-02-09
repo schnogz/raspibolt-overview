@@ -1,8 +1,13 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components'
 import { ipcRenderer } from 'electron'
-import { Box, Grid, Heading } from 'grommet'
-import Header from './header'
+import { Box, Grid } from 'grommet'
+
+import Header from './components/header.js'
+import SystemStats from './components/systemStats.js'
+import BitcoinNodeStats from './components/bitcoinNodeStats.js'
+import MarketStats from './components/marketStats.js'
+import LightningNodeStats from './components/lightningNodeStats.js'
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -11,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
     -webkit-app-region: drag;
   }
 `
-
 const Separator = styled.div`
   margin-top: 10px;
   border-bottom: 2px solid #FFCA58;
@@ -50,30 +54,14 @@ class App extends React.Component {
             { name: 'bottomRight', start: [1, 1], end: [1, 1] }
           ]}
         >
-          <Box gridArea="topLeft" background="light-1" animation='slideUp'>
-            <Heading margin="none" size='small'>
-              System
-            </Heading>
-          </Box>
-          <Box gridArea="topRight" background="light-2" animation='slideUp'>
-            <Heading margin="none" size='small'>
-              Markets
-            </Heading>
-          </Box>
-          <Box gridArea="bottomLeft" background="light-3" animation='slideUp'>
-            <Heading margin="none" size='small'>
-              Bitcoin Node
-            </Heading>
-          </Box>
-          <Box gridArea="bottomRight" background="light-4" animation='slideUp'>
-            <Heading margin="none" size='small'>
-              Lightning Node
-            </Heading>
-          </Box>
+          <SystemStats />
+          <MarketStats />
+          <BitcoinNodeStats />
+          <LightningNodeStats />
         </Grid>
         <GlobalStyle/>
       </Box>
-    );
+    )
   }
 }
 
