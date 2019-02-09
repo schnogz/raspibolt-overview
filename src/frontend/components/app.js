@@ -1,16 +1,20 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { ipcRenderer } from 'electron'
-import { Grid, Box } from 'grommet'
+import { Box, Grid, Heading } from 'grommet'
 import Header from './header'
 
 const GlobalStyle = createGlobalStyle`
   html, body {
     overflow: hidden; 
     background-color: black;
-    color: yellow;
     -webkit-app-region: drag;
   }
+`
+
+const Separator = styled.div`
+  margin-top: 10px;
+  border-bottom: 2px solid #FFCA58;
 `
 
 class App extends React.Component {
@@ -33,6 +37,7 @@ class App extends React.Component {
     return (
       <Box direction='column' pad='small'>
         <Header />
+        <Separator />
         <Grid
           style={{marginTop: '10px'}}
           rows={['flex', 'flex']}
@@ -45,17 +50,25 @@ class App extends React.Component {
             { name: 'bottomRight', start: [1, 1], end: [1, 1] }
           ]}
         >
-          <Box gridArea="topLeft" background="light-1">
-            topLeft
+          <Box gridArea="topLeft" background="light-1" animation='slideUp'>
+            <Heading margin="none" size='small'>
+              System
+            </Heading>
           </Box>
-          <Box gridArea="topRight" background="light-2">
-            topRight
+          <Box gridArea="topRight" background="light-2" animation='slideUp'>
+            <Heading margin="none" size='small'>
+              Markets
+            </Heading>
           </Box>
-          <Box gridArea="bottomLeft" background="light-3">
-            bottomLeft
+          <Box gridArea="bottomLeft" background="light-3" animation='slideUp'>
+            <Heading margin="none" size='small'>
+              Bitcoin Node
+            </Heading>
           </Box>
-          <Box gridArea="bottomRight" background="light-4">
-            bottomRight
+          <Box gridArea="bottomRight" background="light-4" animation='slideUp'>
+            <Heading margin="none" size='small'>
+              Lightning Node
+            </Heading>
           </Box>
         </Grid>
         <GlobalStyle/>
