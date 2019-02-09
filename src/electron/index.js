@@ -19,7 +19,7 @@ function renderApp() {
   let indexPath
   mainWindow = new BrowserWindow({
     fullscreen: !isDev,
-    frame: !isDev,
+    frame: true,
     height: !isDev ? 600 : null,
     width: !isDev ? 900 : null,
     show: false,

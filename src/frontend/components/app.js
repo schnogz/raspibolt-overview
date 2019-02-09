@@ -1,19 +1,14 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components'
 import { ipcRenderer } from 'electron'
-import logo from 'assets/logo.png'
+import { Grid, Box } from 'grommet'
+import Header from './header'
 
 const GlobalStyle = createGlobalStyle`
-  html, body, #app, #app > div {
-    padding: 0; 
-    margin: 0; 
-    height: 100%;
-  }
   html, body {
     overflow: hidden; 
     background-color: black;
     color: yellow;
-    font-family: 'Montserrat', Helvetica, sans-serif;
     -webkit-app-region: drag;
   }
 `
@@ -36,12 +31,35 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
-        <img src={logo} alt="Logo" height='100px' width='100px'/>
-        <p>RaspiBolt System Overview</p>
-        { this.state.data }
+      <Box direction='column' pad='small'>
+        <Header />
+        <Grid
+          style={{marginTop: '10px'}}
+          rows={['flex', 'flex']}
+          columns={[{"count": "fit", "size": "flex"}]}
+          gap="small"
+          areas={[
+            { name: 'topLeft', start: [0, 0], end: [0, 0] },
+            { name: 'topRight', start: [1, 0], end: [1, 0] },
+            { name: 'bottomLeft', start: [0, 1], end: [0, 1] },
+            { name: 'bottomRight', start: [1, 1], end: [1, 1] }
+          ]}
+        >
+          <Box gridArea="topLeft" background="light-1">
+            topLeft
+          </Box>
+          <Box gridArea="topRight" background="light-2">
+            topRight
+          </Box>
+          <Box gridArea="bottomLeft" background="light-3">
+            bottomLeft
+          </Box>
+          <Box gridArea="bottomRight" background="light-4">
+            bottomRight
+          </Box>
+        </Grid>
         <GlobalStyle/>
-      </div>
+      </Box>
     );
   }
 }
