@@ -16,10 +16,6 @@ const GlobalStyle = createGlobalStyle`
     overflow: scroll;
   }
 `
-const Separator = styled.div`
-  margin-top: 4px;
-  border-bottom: 2px solid #FFCA58;
-`
 const StyledGrid = styled(Grid)`
   margin-top: 4px;
 `
@@ -42,9 +38,8 @@ class App extends React.Component {
 
   render () {
     return (
-      <Box direction='column' pad='xsmall'>
+      <Box direction='column' pad='xxsmall'>
         <Header />
-        <Separator />
         <StyledGrid
           rows={['flex', 'flex']}
           columns={[{"count": "fit", "size": "auto"}]}

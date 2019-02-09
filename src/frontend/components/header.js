@@ -6,23 +6,24 @@ import { Box, Clock, Heading, Image, Text } from 'grommet'
 import logo from 'assets/logo.png'
 const DateText = styled(Text)`
   font-style: italic;
+  font-size: 16px;
 `
 const StyledClock = styled(Clock)`
   font-weight: 400;
-  color: #00739D;
+  color: #FFCA58;
   & > div {
-    font-size: 50px;
+    font-size: 46px;
     width: 0.65em;
   }
 `
 class Header extends React.PureComponent {
   render () {
     return (
-      <Box direction='row' justify='between' height='120px'>
+      <Box direction='row' justify='between' height='70px' style={{marginBottom: '4px'}}>
         <Box direction='row' align='start' flex={{grow: "2"}} animation='slideRight'>
-          <Image src={logo} height='120px' width='120px'/>
+          <Image src={logo} height='70px' width='70px'/>
           <Box flex={{grow: "2"}} direction='column' justify='evenly' align='center' height='100%'>
-            <Heading margin="none" size='medium' color='brand'>
+            <Heading margin="none" size='small' color='brand'>
               RaspiBolt Stats
             </Heading>
             <Text color='light-3'>
@@ -30,8 +31,8 @@ class Header extends React.PureComponent {
             </Text>
           </Box>
         </Box>
-        <Box direction='column' align='center' justify='center' pad='small' gap='small' animation='slideLeft'>
-          <DateText size='large' color='light-3'>
+        <Box direction='column' align='center' justify='center' animation='slideLeft'>
+          <DateText color='light-3'>
             {moment().format('MMMM Do, YYYY')}
           </DateText>
           <StyledClock

@@ -6,15 +6,50 @@ const HeaderText = styled(Heading)`
   margin-top: -14px;
   font-size: 24px;
 `
+const PriceText =  styled(Text)`
+  color: ${props => (props.oldP > props.newP ? 'red' : 'green')};
+`
 
 class MarketStats extends React.PureComponent {
-  state = {}
+  state = { price: {} }
 
   componentWillMount() {
-    this.fetchPrice()
+    this.fetchStats()
+    this.fetchPrices()
+    // 1 minute
+    setInterval(() => {
+      this.fetchStats()
+    }, 60000)
+    // 15 seconds
+    setInterval(() => {
+      this.fetchPrices()
+    }, 15000)
+  }
+  fetchPrices = () => {
+    console.log('fetching prices')
+    let that = this
+    // current price
+    fetch('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then((resp) => {
+        return resp.json()
+      }).then((json) => {
+        that.setState({ price: { current: (json.bpi.USD.rate_float).toFixed(2) } })
+    })
+    // price 24 hours ago
+    fetch('https://api.coindesk.com/v1/bpi/historical/close.json?for=yesterday')
+      .then((resp) => {
+        return resp.json()
+      }).then((json) => {
+      that.setState({
+        price: {
+          yesterday: (Object.keys(json.bpi)[0]).toFixed(2)
+        }
+      })
+    })
   }
 
-  fetchPrice = () => {
+  fetchStats = () => {
+    console.log('fetching bitcoin stats')
     let that = this
     fetch('https://api.blockchain.info/stats')
       .then((resp) => {
@@ -22,9 +57,8 @@ class MarketStats extends React.PureComponent {
       }).then((json) => {
         const blocksUntilHalvening = 210000 - (json.n_blocks_total % 210000)
         that.setState({
-          price: json.market_price_usd,
           blocksUntilHalvening,
-          halveningPercentage: (100 - ((blocksUntilHalvening / 210000) * 100)).toFixed(3),
+          halveningPercentage: (100 - ((blocksUntilHalvening / 210000) * 100)).toFixed(2),
           hashRatePhs: (json.hash_rate / 1000000).toFixed(2),
           tradeVolume: Math.floor(json.trade_volume_btc)
         })
@@ -32,6 +66,7 @@ class MarketStats extends React.PureComponent {
   }
 
   render () {
+    const { price } = this.state
     return (
       <Box gridArea='topRight' background='light-4' animation='slideUp' pad='small'>
         <HeaderText margin="none" size='small' textAlign='center'>
@@ -40,7 +75,9 @@ class MarketStats extends React.PureComponent {
         <Box direction='row'>
           <Box flex={{grow: "2"}} direction='row' justify='between'>
             <Text>Price:</Text>
-            <Text>${this.state.price}</Text>
+            <PriceText newP={price.current} oldP={price.yesterday}>
+              ${price.current}
+            </PriceText>
           </Box>
         </Box>
         <Box direction='row'>
