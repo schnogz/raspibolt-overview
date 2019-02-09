@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { ipcRenderer } from 'electron'
 import { Box, Grid } from 'grommet'
@@ -11,17 +11,17 @@ import LightningNodeStats from './components/lightningNodeStats.js'
 
 const GlobalStyle = createGlobalStyle`
   html, body {
-    overflow: hidden; 
     background-color: black;
     -webkit-app-region: drag;
+    overflow: scroll;
   }
 `
 const Separator = styled.div`
-  margin-top: 10px;
+  margin-top: 4px;
   border-bottom: 2px solid #FFCA58;
 `
 const StyledGrid = styled(Grid)`
-  margin-top: 10px;
+  margin-top: 4px;
 `
 
 class App extends React.Component {
@@ -42,13 +42,13 @@ class App extends React.Component {
 
   render () {
     return (
-      <Box direction='column' pad='small'>
+      <Box direction='column' pad='xsmall'>
         <Header />
         <Separator />
         <StyledGrid
           rows={['flex', 'flex']}
           columns={[{"count": "fit", "size": "auto"}]}
-          gap="small"
+          gap="xsmall"
           areas={[
             { name: 'topLeft', start: [0, 0], end: [0, 0] },
             { name: 'topRight', start: [1, 0], end: [1, 0] },

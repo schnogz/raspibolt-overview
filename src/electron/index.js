@@ -44,7 +44,7 @@ function renderApp() {
   mainWindow.loadURL(indexPath)
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-    if (isDev) mainWindow.webContents.openDevTools()
+    // if (isDev) mainWindow.webContents.openDevTools()
   })
 
   mainWindow.on('closed', () => {

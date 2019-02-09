@@ -12,7 +12,7 @@ class SystemStats extends React.PureComponent {
     return (
       <Box gridArea='topLeft' background='light-4' animation='slideUp' pad='small'>
         <HeaderText margin="none" size='small' textAlign='center'>
-          System
+          System Health
         </HeaderText>
         <Box direction='row'>
           <Box flex={{grow: "2"}} direction='row' justify='between'>
